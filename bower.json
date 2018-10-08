@@ -1,0 +1,22 @@
+{
+  "name": "ansible_introduction",
+  "version": "1.0.0",
+  "main": [
+    "js/reveal.js",
+    "css/reveal.css"
+  ],
+  "license": "MIT",
+  "description": "An Introduction to Server Configuration and Provisioning with Ansible",
+  "authors": [
+    "Daniel Oliver <danieloliversoftware@gmail.com>"
+  ],
+  "dependencies": {
+    "headjs": "~1.0.3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}

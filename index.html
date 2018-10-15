@@ -63,14 +63,155 @@
 
             <section data-background="#F2F2F2">
                 <h3>Building
-                    <br/>Deploying
-                    <br/>Monitoring </h3>
-                    <h2>Applications
-                        <br/> with Azure
-                    </h2>
+                    <br />Deploying
+                    <br />Monitoring </h3>
+                <h2>Applications
+                    <br /> with Azure
+                </h2>
+            </section>
+
+            <!-- BEGIN PROBLEM -->
+
+            <section data-background="#eAeAeA">
+                <p>
+                    Have you ever met someone very confident in their release process?
+                </p>
+                <aside class="notes">
+
+                </aside>
+            </section>
+
+            <section>
+                <p>
+                    Someone so confident in their release process they deploy on Fridays?
+                </p>
+                <img data-src="assets/friday_deploy.gif" height="540" width="960">
+                <aside class="notes">
+                    I have met someone very confident in their deployment process. I usually think they're a little
+                    crazy. No matter that I know it's logically possible.
+                </aside>
+            </section>
+
+            <section>
+                <p>
+                    Have you ever met someone with a manual release process?
+                </p>
+                <aside class="notes">
+                    I still have manual release processes
+                </aside>
+            </section>
+
+            <section>
+                <p>
+                    This might be their attitude.
+                </p>
+                <img data-src="assets/life_is_pain.gif" height="500" width="1080">
+                <aside class="notes">
+                    It feels like this right? Anyone who says differently is selling something.
+                </aside>
+            </section>
+
+            <!-- BEGIN SOLUTION -->
+
+            <section data-background="#eAeAeA">
+                <h2>To reach sanity:</h2>
+                <br />
+                <h3>
+                    <ol>
+                        <li>Consistent builds</li>
+                        <li>Consistent deployments</li>
+                        <li>Monitor applications</li>
+                    </ol>
+                </h3>
+                <aside class="notes">
+                    Fear not, I might have something to help ease your mind.
+                </aside>
+            </section>
+
+            <section>
+                <p>Azure DevOps is the starting point.</p>
+                <img data-src="assets/azure_devops_summary.png" height="449" width="1293">
+                <aside class="notes">
+                    September 10th is when VSTS was rebranded as Azure DevOps.
+                </aside>
+            </section>
+
+            <section>
+                <p>https://dev.azure.com/knoxdevops/knoxdevops</p>
+                <img data-src="assets/knoxdevops_summary.png" height="693" width="1351">
+                <aside class="notes">
+                    Each project has a general summary page showing high level info.
+                </aside>
+            </section>
+
+            <section>
+                <p>I can store repos here, or GitHub, or Bitbucket, or wherever.</p>
+                <img data-src="assets/knoxdevops_files.png" height="694" width="1352">
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <p>The language doesn't matter. I also have a PHP example here.
+                    <br />
+                    <br /> https://dev.azure.com/knoxdevops/php_sample
+                </p>
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <h3>Consistent builds</h3>
+                <h6>Tip 1: Build on code commit!</h6>
+                <img data-src="assets/knoxdevops_build_1.png" height="692" width="1364">
+                <aside class="notes">
+                    Simple as adding a trigger to build
+                </aside>
             </section>
 
 
+            <section>
+                <h3>Consistent builds</h3>
+                <h6>Tip 2: Keep your build definition in your repository.</h6>
+                <img data-src="assets/knoxdevops_build_2.png" height="691" width="1345">
+                <aside class="notes">
+                    Simple as adding a trigger to build
+                </aside>
+            </section>
+
+
+            <section>
+                <pre class="yaml"><code style="max-height:100%" data-trim data-noescape>pool:
+  vmImage: 'Ubuntu 16.04'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: |
+    dotnet build ./src/KnoxDevOps.Core/ --configuration $(buildConfiguration)
+    dotnet build ./src/KnoxDevOps.API/ --configuration $(buildConfiguration)
+    dotnet test ./src/KnoxDevOps.Tests/ --configuration $(buildConfiguration) --logger trx --collect "Code coverage"
+    dotnet test ./src/KnoxDevOps.Tests/ --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/
+    cd ./src/KnoxDevOps.Tests/
+    dotnet reportgenerator "-reports:$(System.DefaultWorkingDirectory)/TestResults/Coverage/coverage.cobertura.xml" "-targetdir:$(System.DefaultWorkingDirectory)/TestResults/Coverage/Reports" "-reportTypes:htmlInline" "-tag:$(Build.BuildNumber)"
+    cd ../../
+    dotnet publish ./src/KnoxDevOps.API/ --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+- task: PublishTestResults@2
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '$(System.DefaultWorkingDirectory)/**/*.trx'
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: cobertura
+    summaryFileLocation: $(System.DefaultWorkingDirectory)/TestResults/Coverage/**/*.xml
+    reportDirectory: $(System.DefaultWorkingDirectory)/TestResults/Coverage/Reports
+- task: PublishBuildArtifacts@1</code></pre>
+                <aside class="notes">
+                    Idempotent actions declare the state we want the server to be at.
+                    <br /> In this case, we just want to remove the user John Doe.
+                </aside>
+            </section>
 
             <section data-background="#333333">
                 <h1>Daniel Oliver</h1>
@@ -78,7 +219,9 @@
                 <p>Website: olivercoding.com</p>
                 <p>Twitter: @a_software_dev</p>
                 <p>Github: danieloliver</p>
-                <img style="background-color: rgba(255, 255, 255, 0); border:none; box-shadow: 0 0 0 rgba(0,0,0,0);" data-src="assets/Asset_7.png">
+                <p>Slides: https://azure-app-talk.olivercoding.com/</p>
+                <img style="background-color: rgba(255, 255, 255, 0); border:none; box-shadow: 0 0 0 rgba(0,0,0,0);"
+                    data-src="assets/Asset_7.png">
                 <aside class="notes">
                     Radio Systems Corporation of Knoxville is my employer. I focus on solutions.
                 </aside>

@@ -160,25 +160,26 @@
                 </aside>
             </section>
 
+            <!-- BEGIN Azure DevOps Build -->
+
             <section>
                 <h3>Consistent builds</h3>
-                <h6>Tip 1: Build on code commit!</h6>
+                <p>Tip 1: Build on code commit!</p>
                 <img data-src="assets/knoxdevops_build_1.png" height="692" width="1364">
                 <aside class="notes">
                     Simple as adding a trigger to build
                 </aside>
             </section>
 
-
             <section>
                 <h3>Consistent builds</h3>
-                <h6>Tip 2: Keep your build definition in your repository.</h6>
+                <p>Tip 2: Keep your build definition in your repository.</p>
                 <img data-src="assets/knoxdevops_build_2.png" height="691" width="1345">
                 <aside class="notes">
-                    Simple as adding a trigger to build
+                    Azure TFS, I mean Azure DevOps, can now support YAML build definitions stored in source control.
+                    <br /> YAML is a good starting point before actual build scripts.
                 </aside>
             </section>
-
 
             <section>
                 <pre class="yaml"><code style="max-height:100%" data-trim data-noescape>pool:
@@ -189,8 +190,6 @@ variables:
 
 steps:
 - script: |
-    dotnet build ./src/KnoxDevOps.Core/ --configuration $(buildConfiguration)
-    dotnet build ./src/KnoxDevOps.API/ --configuration $(buildConfiguration)
     dotnet test ./src/KnoxDevOps.Tests/ --configuration $(buildConfiguration) --logger trx --collect "Code coverage"
     dotnet test ./src/KnoxDevOps.Tests/ --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/
     cd ./src/KnoxDevOps.Tests/
@@ -208,10 +207,179 @@ steps:
     reportDirectory: $(System.DefaultWorkingDirectory)/TestResults/Coverage/Reports
 - task: PublishBuildArtifacts@1</code></pre>
                 <aside class="notes">
-                    Idempotent actions declare the state we want the server to be at.
-                    <br /> In this case, we just want to remove the user John Doe.
+                    Everything in that script tag could be refactored to an actual script that would also be stored in
+                    source control.
+                    <br /> The other actions might be easier to just use YAML for.
                 </aside>
             </section>
+
+            <section>
+                <h3>Consistent builds</h3>
+                <img data-src="assets/knoxdevops_build_3.png" height="692" width="1341">
+                <aside class="notes">
+                    This is the result of the previous YAML build definition.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Consistent builds</h3>
+                <p>Tip 3: Upload test results.</p>
+                <img data-src="assets/knoxdevops_build_4.png" height="691" width="1348">
+                <aside class="notes">
+                    There are some extensions that help with test result statistics if you want to track code quality.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Consistent builds</h3>
+                <p>Tip 4: Upload Code Coverage.</p>
+                <img data-src="assets/knoxdevops_build_5.png" height="687" width="1345">
+                <aside class="notes">
+                    Along with test results, code coverage is a nice to have.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Consistent builds</h3>
+                <p>
+                    <ol>
+                        <li>Build on code commit!</li>
+                        <li>Keep your build definition in your repository.</li>
+                        <li>Upload test results.</li>
+                        <li>Upload Code Coverage.</li>
+                    </ol>
+                </p>
+                <br />
+                <p><b>
+                        Azure DevOps Build Pipelines and your choice of source control.
+                    </b>
+                </p>
+                <aside class="notes">
+                    Put these steps with Azure DevOps.
+                </aside>
+            </section>
+
+            <!-- BEGIN Azure Resources -->
+
+            <section data-background="#eAeAeA">
+                <h2>Consistent deployment</h2>
+                <aside class="notes">
+                    Deployments shouldn't be copying files by FTP.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Existing Resources</h3>
+                <img data-src="assets/knoxdevops_deploy_1.png" height="722" width="1347">
+                <aside class="notes">
+                    I built these resources with the portal. For how to make these with code, you should come to Azure
+                    meetup on Thursday where Jamie Phillips talks about Infrastructure as Code.
+                </aside>
+            </section>
+
+            <section>
+                <p>
+                    <ul>
+                        <li>App Service Plan - Allocated server resources</li>
+                        <br />
+                        <li>App Service - Azure Web App</li>
+                        <br />
+                        <li>Web App (staging slot) - Deployment slot sharing resources</li>
+                        <br />
+                        <li>Application Insights - Logs, Analytics, Metrics</li>
+                    </ul>
+                </p>
+                <aside class="notes">
+                    A real application might also have a database.
+                </aside>
+            </section>
+
+            <section>
+                <img data-src="assets/knoxdevops_deploy_4.png" height="137" width="521">
+                <p>https://devops23.azurewebsites.net/api/values</p>
+                <img data-src="assets/knoxdevops_deploy_2.png" height="722" width="1349">
+                <aside class="notes">
+                    This is the web app that the website runs on.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Consistent deployments</h3>
+                <p>Tip 1: Only release from one place</p>
+                <img data-src="assets/knoxdevops_deploy_3.png" height="727" width="1343">
+                <aside class="notes">
+                    Azure DevOps also has the concept of a Release Pipeline.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Consistent deployments</h3>
+                <p>Tip 2: Define deployment stages </p>
+                <img data-src="assets/knoxdevops_deploy_5.png" height="722" width="1345">
+                <aside class="notes">
+                    Triggering a release pipeline from a build commit is best.
+                </aside>
+            </section>
+
+            <section>
+                <h4>Staging slot</h4>
+                <p>https://devops23-staging.azurewebsites.net/api/values</p>
+                <img data-src="assets/knoxdevops_deploy_8.png" height="721" width="1341">
+                <aside class="notes">
+                    Approved. Now swap production slot for staging slot.
+                </aside>
+            </section>
+
+            <section>
+                <img data-src="assets/knoxdevops_deploy_6.png" height="956" width="635">
+                <aside class="notes">
+                    Make your project manager approve the release
+                </aside>
+            </section>
+
+            <section>
+                <img data-src="assets/knoxdevops_deploy_7.png" height="722" width="1342">
+                <aside class="notes">
+                    Approved. Now swap production slot for staging slot.
+                </aside>
+            </section>
+
+            <section>
+                <img data-src="assets/knoxdevops_deploy_9.png" height="723" width="1344">
+                <aside class="notes">
+                    An application has been built and deployed. That's pretty easy.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Consistent deployments</h3>
+                <p>
+                    <ol>
+                        <li>Only release from one place.</li>
+                        <li>Define deployment stages.</li>
+                        <li>Require QA/BA/PM approval.</li>
+                    </ol>
+                </p>
+                <br />
+                <p><b>
+                        Azure DevOps Release Pipelines triggered by Azure DevOps Builds.
+                    </b>
+                </p>
+                <aside class="notes">
+                    Put these steps with Azure DevOps.
+                </aside>
+            </section>
+
+            <!-- BEGIN Azure Monitoring -->
+
+            <section data-background="#eAeAeA">
+                <h2>Monitor applications</h2>
+                <aside class="notes">
+                    Helpdesk tickets don't count as monitoring.
+                </aside>
+            </section>
+
+            <!-- END SOLUTION -->
 
             <section data-background="#333333">
                 <h1>Daniel Oliver</h1>

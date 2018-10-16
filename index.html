@@ -68,6 +68,7 @@
                 <h2>Applications
                     <br /> with Azure
                 </h2>
+                <p>https://dev.azure.com/knoxdevops/knoxdevops</p>
             </section>
 
             <!-- BEGIN PROBLEM -->
@@ -374,12 +375,106 @@ steps:
 
             <section data-background="#eAeAeA">
                 <h2>Monitor applications</h2>
+                <p>Tip 1: Helpdesk tickets don't count as monitoring.</p>
                 <aside class="notes">
-                    Helpdesk tickets don't count as monitoring.
+
+                </aside>
+            </section>
+
+            <section>
+                <h4>The Failure</h4>
+                <p>(the only piece of code, I swear)</p>
+                <img data-src="assets/knoxdevops_monitor_1.png" height="398" width="976">
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <h4>Azure Application Insights</h4>
+                <p> Gathers statistics about the attached applications.</p>
+                <img data-src="assets/knoxdevops_monitor_2.png" height="723" width="1344">
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <h3>Monitor Applications</h3>
+                <p>Tip 2: Understand the rules you care about.</p>
+                <img data-src="assets/knoxdevops_monitor_3.png" height="719" width="1344">
+                <aside class="notes">
+                    Alerting rules should be actionable and useful.
+                </aside>
+            </section>
+
+            <section>
+                <h3>Monitor Applications</h3>
+                <p>Creating new rule for failed requests.</p>
+                <img data-src="assets/knoxdevops_monitor_fail_1.png" height="463" width="1078">
+                <aside class="notes">
+
+                </aside>
+            </section>
+
+            <section>
+                <h3>Monitor Applications</h3>
+                <p>Alert someone when rule activated.</p>
+                <img data-src="assets/knoxdevops_monitor_fail_2.png" height="584" width="1037">
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <h3>Monitor Applications</h3>
+                <p>Cause failure.</p>
+                <img data-src="assets/knoxdevops_monitor_cause.png" height="803" width="1346">
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <h3>Monitor Applications</h3>
+                <p>Tip 3: Have tier 1 support on-call rotation.</p>
+                <img data-src="assets/knoxdevops_monitor_alert.png" height="720" width="1196">
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <h3>Monitor Applications</h3>
+                <p>
+                    <ol>
+                        <li>Helpdesk tickets don't count as monitoring.</li>
+                        <li>Understand the rules you care about.</li>
+                        <li>Have tier 1 support on-call rotation.</li>
+                        <li><i>Pages should be urgent, important, actionable, and real. -Rob Ewaschuk</i></li>
+                    </ol>
+                </p>
+                <br />
+                <p><b>
+                        Azure Application Insights gathering information from Azure Web Apps.
+                    </b>
+                </p>
+                <aside class="notes">
                 </aside>
             </section>
 
             <!-- END SOLUTION -->
+
+            <section data-background="#eAeAeA">
+                <h2>Sanity:</h2>
+                <br />
+                <h3>
+                    <ol>
+                        <li>Consistent builds</li>
+                        <li>Consistent deployments</li>
+                        <li>Monitor applications</li>
+                    </ol>
+                </h3>
+                <p>This is all Azure specific tonight. But the same principles could apply to any DevOps project.</p>
+                <aside class="notes">
+                    
+                </aside>
+            </section>
 
             <section data-background="#333333">
                 <h1>Daniel Oliver</h1>

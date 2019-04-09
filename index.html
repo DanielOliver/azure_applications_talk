@@ -307,7 +307,7 @@ steps:
                         <li>Web App (staging slot) - Deployment slot sharing resources</li>
                         <br />
                         <li>Application Insights - Logs, Analytics, Metrics</li>
-                        <br/>
+                        <br />
                         <li>Azure SQL Database</li>
                     </ul>
                 </p>
@@ -356,6 +356,21 @@ steps:
                 <img data-src="assets/20190408_deploy_database.png" height="724" width="1184">
                 <aside class="notes">
                     Yes, even the database should be automated.
+                </aside>
+            </section>
+
+            <section>
+                <h4>Tip 3: Automate every step of the deployment</h4>
+                <p>
+                    <ul>
+                        <li>Application APIs shouldn't break</li>
+                        <li>Database changes shouldn't be breaking changes</li>
+                        <li>A feature may be deployed through several deployments</li>
+                    </ul>
+                </p>
+                <aside class="notes">
+                    Ever heard the phrase "commit early, and commit often"? The point is to make small changes. Change
+                    in large software systems is gradual and slow.
                 </aside>
             </section>
 

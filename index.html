@@ -59,6 +59,15 @@
     <div class="reveal">
         <div class="slides">
 
+            <!-- CODESTOCK COVER -->
+            <section>
+                <img data-src="assets/slidedeckcover.jpg">
+                <aside class="notes">
+                    Thank you Codestock sponsors.
+                </aside>
+            </section>
+
+
             <!-- BEGIN INTRODUCTION -->
 
             <section data-background="#F2F2F2">
@@ -69,6 +78,14 @@
                     <br /> with Azure
                 </h2>
                 <p>https://dev.azure.com/knoxdevops/knoxdevops</p>
+            </section>
+
+            <!-- PERSONAL CREDENTIALS -->
+            <section>
+                <img data-src="assets/personal/20190408_profile.png">
+                <aside class="notes">
+                    Thank you Codestock sponsors.
+                </aside>
             </section>
 
             <!-- BEGIN PROBLEM -->
@@ -191,12 +208,15 @@ variables:
 
 steps:
 - script: |
-    dotnet test ./src/KnoxDevOps.Tests/ --configuration $(buildConfiguration) --logger trx --collect "Code coverage"
+    dotnet build ./src/KnoxDevOps.API/ --configuration $(buildConfiguration)
+    dotnet test ./src/KnoxDevOps.Tests/ --configuration $(buildConfiguration) --logger "trx;LogFileName=testresults.trx"
     dotnet test ./src/KnoxDevOps.Tests/ --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(System.DefaultWorkingDirectory)/TestResults/Coverage/
     cd ./src/KnoxDevOps.Tests/
     dotnet reportgenerator "-reports:$(System.DefaultWorkingDirectory)/TestResults/Coverage/coverage.cobertura.xml" "-targetdir:$(System.DefaultWorkingDirectory)/TestResults/Coverage/Reports" "-reportTypes:htmlInline" "-tag:$(Build.BuildNumber)"
     cd ../../
     dotnet publish ./src/KnoxDevOps.API/ --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+    cd ./src/KnoxDevOps.API/
+    dotnet ef migrations script --output $BUILD_ARTIFACTSTAGINGDIRECTORY/database.sql --idempotent --context MeetupContext
 - task: PublishTestResults@2
   inputs:
     testRunner: VSTest
@@ -271,7 +291,7 @@ steps:
 
             <section>
                 <h3>Existing Resources</h3>
-                <img data-src="assets/knoxdevops_deploy_1.png" height="722" width="1347">
+                <img data-src="assets/knoxdevops_deploy_1.png" height="722" width="621">
                 <aside class="notes">
                     I built these resources with the portal. For how to make these with code, you should come to Azure
                     meetup on Thursday where Jamie Phillips talks about Infrastructure as Code.
@@ -288,6 +308,8 @@ steps:
                         <li>Web App (staging slot) - Deployment slot sharing resources</li>
                         <br />
                         <li>Application Insights - Logs, Analytics, Metrics</li>
+                        <br/>
+                        <li>Database</li>
                     </ul>
                 </p>
                 <aside class="notes">
@@ -472,7 +494,7 @@ steps:
                 </h3>
                 <p>This is all Azure specific tonight. But the same principles could apply to any DevOps project.</p>
                 <aside class="notes">
-                    
+
                 </aside>
             </section>
 

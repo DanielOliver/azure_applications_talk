@@ -1,5 +1,5 @@
 /* global module:false */
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 	var port = grunt.option('port') || 8000;
 	var root = grunt.option('root') || '.';
 
@@ -19,28 +19,28 @@ module.exports = function(grunt) {
 		},
 
 		qunit: {
-			files: [ 'test/*.html' ]
+			files: ['test/*.html']
 		},
 		copy: {
 			build: {
-			  cwd: '.',
-			  src: [
-				  'index.html',
-				  'assets/**',
-				  'css/**',
-				  'js/**',
-				  'lib/**',
-				  'images/**',				  
-				  'plugin/**',
-				  '**.md'
-			  ],
-			  dest: 'build',
-			  expand: true
+				cwd: '.',
+				src: [
+					'index.html',
+					'assets/**',
+					'css/**',
+					'js/**',
+					'lib/**',
+					'images/**',
+					'plugin/**',
+					'**.md'
+				],
+				dest: 'build',
+				expand: true
 			},
 		},
 		clean: {
 			build: {
-			  src: [ 'build' ]
+				src: ['build']
 			},
 		},
 
@@ -108,17 +108,18 @@ module.exports = function(grunt) {
 					exports: false
 				}
 			},
-			files: [ 'Gruntfile.js', 'js/reveal.js' ]
+			files: ['Gruntfile.js', 'js/reveal.js']
 		},
 
 		connect: {
 			server: {
 				options: {
+					hostname: 'localhost',
 					port: port,
 					base: root,
 					livereload: true,
 					open: true,
-					useAvailablePort: true
+					// useAvailablePort: true
 				}
 			}
 		},
@@ -140,7 +141,7 @@ module.exports = function(grunt) {
 
 		watch: {
 			js: {
-				files: [ 'Gruntfile.js', 'js/reveal.js' ],
+				files: ['Gruntfile.js', 'js/reveal.js'],
 				tasks: 'js'
 			},
 			theme: {
@@ -153,7 +154,7 @@ module.exports = function(grunt) {
 				tasks: 'css-themes'
 			},
 			css: {
-				files: [ 'css/reveal.scss' ],
+				files: ['css/reveal.scss'],
 				tasks: 'css-core'
 			},
 			html: {
@@ -168,49 +169,49 @@ module.exports = function(grunt) {
 		},
 
 		retire: {
-			js: [ 'js/reveal.js', 'lib/js/*.js', 'plugin/**/*.js' ],
-			node: [ '.' ]
+			js: ['js/reveal.js', 'lib/js/*.js', 'plugin/**/*.js'],
+			node: ['.']
 		}
 
 	});
 
 	// Dependencies
-	grunt.loadNpmTasks( 'grunt-contrib-connect' );
-	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
-	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
-	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
-	grunt.loadNpmTasks( 'grunt-contrib-watch' );
-	grunt.loadNpmTasks( 'grunt-autoprefixer' );
-	grunt.loadNpmTasks( 'grunt-retire' );
-	grunt.loadNpmTasks( 'grunt-sass' );
-	grunt.loadNpmTasks( 'grunt-zip' );
+	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-autoprefixer');
+	grunt.loadNpmTasks('grunt-retire');
+	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-zip');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	
+
 	// Default task
-	grunt.registerTask( 'default', [ 'css', 'js', 'clean', 'copy' ] );
+	grunt.registerTask('default', ['css', 'js', 'clean', 'copy']);
 
 	// JS task
 	// grunt.registerTask( 'js', [ 'jshint', 'uglify', 'qunit' ] );
-	grunt.registerTask( 'js', [ 'jshint', 'uglify' ] );
+	grunt.registerTask('js', ['jshint', 'uglify']);
 
 	// Theme CSS
-	grunt.registerTask( 'css-themes', [ 'sass:themes' ] );
+	grunt.registerTask('css-themes', ['sass:themes']);
 
 	// Core framework CSS
-	grunt.registerTask( 'css-core', [ 'sass:core', 'autoprefixer', 'cssmin' ] );
+	grunt.registerTask('css-core', ['sass:core', 'autoprefixer', 'cssmin']);
 
 	// All CSS
-	grunt.registerTask( 'css', [ 'sass', 'autoprefixer', 'cssmin' ] );
+	grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin']);
 
 	// Package presentation to archive
-	grunt.registerTask( 'package', [ 'default', 'zip' ] );
+	grunt.registerTask('package', ['default', 'zip']);
 
 	// Serve presentation locally
-	grunt.registerTask( 'serve', [ 'connect', 'watch' ] );
+	grunt.registerTask('serve', ['connect', 'watch']);
 
 	// Run tests
-	grunt.registerTask( 'test', [ 'jshint', 'qunit' ] );
+	grunt.registerTask('test', ['jshint', 'qunit']);
 
 };

@@ -202,10 +202,8 @@
             <section>
                 <pre class="yaml"><code style="max-height:100%" data-trim data-noescape>pool:
   vmImage: 'Ubuntu 16.04'
-
 variables:
   buildConfiguration: 'Release'
-
 steps:
 - script: |
     dotnet build ./src/KnoxDevOps.API/ --configuration $(buildConfiguration)
@@ -299,6 +297,9 @@ steps:
 
             <section>
                 <p>
+                    Production, Testing, Dev, QA, Staging, or etc. environments would all look the same, have the same resource types.
+                </p>
+                <p>
                     <ul>
                         <li>App Service Plan - Allocated server resources</li>
                         <br />
@@ -356,7 +357,7 @@ steps:
                 <p>Swapping staging with production.</p>
                 <img data-src="assets/20190412_deployment_swap.jpeg" height="700" width="1400">
                 <aside class="notes">
-                    This is exactly what swapping out staging slots looks like.
+                    This is exactly what swapping out staging slots looks like. Swapping slots is a lot like switching traffic on a blue-green deployment.
                 </aside>
             </section>
 

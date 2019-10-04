@@ -288,7 +288,8 @@ steps:
                 <h4>Waiting on the build</h4>
                 <img data-src="assets/20190413_spongebob_beard.gif" height="582" width="740">
                 <aside class="notes">
-                    This is always the part where people ask what I'm working on, and I say that I'm waiting. And so they're like "soooo, you're not working on anything?"
+                    This is always the part where people ask what I'm working on, and I say that I'm waiting. And so
+                    they're like "soooo, you're not working on anything?"
                 </aside>
             </section>
 
@@ -338,7 +339,8 @@ steps:
                     </ul>
                 </p>
                 <aside class="notes">
-                    These are all Azure specific services. But the services provided are a commodity. Most generic websites have a web server, a database server, and Nginx or IIS log aggregation.
+                    These are all Azure specific services. But the services provided are a commodity. Most generic
+                    websites have a web server, a database server, and Nginx or IIS log aggregation.
                 </aside>
             </section>
 
@@ -485,6 +487,17 @@ steps:
                 <p> Gathers metrics about the attached applications.</p>
                 <img data-src="assets/knoxdevops_monitor_2.png" height="723" width="1344">
                 <aside class="notes">
+                    A few metrics, such as average response time could become a SLI (Service-Level-Indicator).
+                </aside>
+            </section>
+
+            <section>
+                <h3>Monitor Applications</h3>
+                <p>A metric is a fact. A helpdesk ticket is a story.</p>
+                <aside class="notes">Neither of these can effectively disprove the other
+                    <br />
+                    Metrics might be a more reliable general indicator of service availability,
+                    but they don't effectively capture the individual's troubles.
                 </aside>
             </section>
 
@@ -549,7 +562,7 @@ steps:
                 <h3>Monitor Applications</h3>
                 <p>
                     <ol>
-                        <li>Helpdesk tickets don't count as monitoring.</li>
+                        <li>Helpdesk tickets aren't enough monitoring.</li>
                         <li>Understand the rules you care about.</li>
                         <li>Have tier 1 support on-call rotation.</li>
                         <li><i>Pages should be urgent, important, actionable, and real. -Rob Ewaschuk</i></li>
@@ -561,6 +574,51 @@ steps:
                     </b>
                 </p>
                 <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <h3>Monitor Applications Bonus</h3>
+                <h4>Site Reliability</h4>
+                <p>
+                    <ol>
+                        <li>SLI (Service Level Indicator)</li>
+                        <li>SLO (Service Level Objective)</li>
+                        <li>SLA (Service Level Agreement)</li>
+                    </ol>
+                </p>
+                <aside class="notes">
+                    Site Reliability Engineer has been a big buzzword lately, along with DevOps.
+                </aside>
+            </section>
+
+            <section>
+                <h4>SLI (Service Level Indicator)</h4>
+                <p>
+                    What can we measure and give a number for?
+                    <br> <i>Average Website Response Time can be measured.</i>
+                </p>
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <section>
+                <h4>SLO (Service Level Objective)</h4>
+                <p> What should the measurements be?
+                    <br> <i>Average Website Response Time should be below 100ms.</i>
+                </p>
+                <aside class="notes">
+                    More commonly, you'll hear the phrase 99th percentile (or the 90th, or 95th percentile).
+                </aside>
+            </section>
+
+            <section>
+                <h4>SLA (Service Level Agreement)</h4>
+                <p> What did we agree with our boss, that the measurements should be?
+                    <br> <i>Who gets woken up at 2am to fix stuff?</i>
+                </p>
+                <aside class="notes">
+                    It's like signing support agreements for internal customers.
                 </aside>
             </section>
 
